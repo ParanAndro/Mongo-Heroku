@@ -1,6 +1,13 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const theport = process.env.PORT || 27017;
+const http = require('http');
+
+var server = http.createServer();
+server.on('request', function (request, response) {
+    response.write('It happened!');
+    response.end();
+});
 
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://paran:paran@ds255309.mlab.com:55309/database-5', {
@@ -155,3 +162,5 @@ Promise.all([kenny.save(), mark.save(), benny.save()])
     .then(findKennyAndDelete)
     .then(findBennyAndRemove)
     .catch(console.log.bind(console))
+
+   server.listen();
